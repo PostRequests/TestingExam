@@ -125,7 +125,7 @@
   <ItemGroup>
     <ClCompile Include="Admin.cpp" />
     <ClCompile Include="Guest.cpp" />
-    <ClCompile Include="TestingExam.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="UserManager.cpp" />
     <ClCompile Include="Users.cpp" />
   </ItemGroup>

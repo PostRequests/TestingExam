@@ -7,52 +7,28 @@
 #include <vector>
 #include "Guest.h"
 #include "Admin.h"
-class UserManager : Users
+#include <regex>
+
+class UserManager  // Убрано наследование от Users
 {
 private:
     std::vector<std::shared_ptr<Users>> users;
-    int nextId;
-    static const std::string ADMIN_LOGIN; // Стандартный логин админа
-
+    
 public:
-    UserManager();
+    UserManager();  // Раскомментирован конструктор
 
     // Методы для работы с пользователями
     bool registerGuest(const std::string& login, const std::string& password,
-        const std::string& firstName, const std::string& lastName,
-        const std::string& patronymic, const std::string& phoneNumber,
-        const std::string& address);
+        const std::string& fullName, const std::string& phoneNumber);
 
-    bool createAdmin(const std::string& password,
-        const std::string& firstName, const std::string& lastName,
-        const std::string& patronymic, const std::string& phoneNumber);
+    bool createAdmin(const std::string& login, const std::string& password,
+        const std::string& fullName, const std::string& phoneNumber);
 
-    std::shared_ptr<Users> authenticate(const std::string& login, const std::string& password) const;
-    std::shared_ptr<Users> getUserByLogin(const std::string& login) const;
-    std::shared_ptr<Users> getUserById(int id) const;
-
-    bool userExists(const std::string& login) const;
-    bool deleteUser(int id);
-    bool deleteUserByLogin(const std::string& login);
-
-    std::vector<std::shared_ptr<Users>> getAllUsers() const;
-    std::vector<std::shared_ptr<Guest>> getAllGuests() const;
-    std::shared_ptr<Admin> getAdmin() const;
-
-    bool changeUserPassword(int userId, const std::string& newPassword);
-    bool changeUserPasswordByLogin(const std::string& login, const std::string& newPassword);
-
-    // Сохранение и загрузка пользователей
-    bool saveUsersToFile(const std::string& filename) const;
-    bool loadUsersFromFile(const std::string& filename);
-
-    // Валидация данных
-    static bool isValidLogin(const std::string& login);
-    static bool isValidPassword(const std::string& password);
-    static bool isValidPhoneNumber(const std::string& phoneNumber);
+    bool isValidPhoneNumber(std::string phone);
+    bool isValidPassword(std::string password);
+    bool isValidLogin(std::string login);
+    bool isValidFullName(std::string fullName);
 
 private:
-    int generateNextId();
+  
 };
-
-

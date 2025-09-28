@@ -11,10 +11,9 @@
 
 class UserManager  // Убрано наследование от Users
 {
-private:
-    std::vector<std::shared_ptr<Users>> users;
-    
+
 public:
+    std::vector<std::shared_ptr<Users>> users;
     UserManager();  // Раскомментирован конструктор
 
     // Методы для работы с пользователями

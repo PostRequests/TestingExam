@@ -53,18 +53,14 @@ bool UserManager::isValidLogin(std::string login) {
     if (login.length() <= 4) {
         return false;
     }
-    // Проверяем, что пароль не содержит знак '~'
-    for (char c : login) {
-        if (c == '~') {
-            return false;
-        }
-    }
+  
     for (auto& user : users) {
         if (user->getLogin() == login) {
             return false;  // Логин уже существует
         }
     }
-    return true;
+    std::regex p("^[a-zA-Z0-9]+$"); //Проверяем, что содержат только англ буквы и цифры
+    return std::regex_match(login, p);
 }
 
 bool UserManager::isValidFullName(std::string fullName) {
@@ -78,6 +74,4 @@ bool UserManager::isValidFullName(std::string fullName) {
             return false;
         }
     }
-
-   
 }

@@ -102,6 +102,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -126,14 +127,21 @@
     <ClCompile Include="Admin.cpp" />
     <ClCompile Include="Guest.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="SaverUserManager.cpp" />
     <ClCompile Include="UserManager.cpp" />
     <ClCompile Include="Users.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Admin.h" />
     <ClInclude Include="Guest.h" />
+    <ClInclude Include="Option.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="SaverUserManager.h" />
     <ClInclude Include="UserManager.h" />
     <ClInclude Include="Users.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TestingExam.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

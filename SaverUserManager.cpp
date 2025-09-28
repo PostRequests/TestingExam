@@ -1,15 +1,15 @@
-#include "SaverUserManager.h"
+Ôªø#include "SaverUserManager.h"
 SaverUserManager::SaverUserManager(const std::string& path) {
-    // œÓÎÛ˜‡ÂÏ ‡·ÒÓÎ˛ÚÌ˚È ÔÛÚ¸
+    // –ü–æ–ª—É—á–∞–µ–º –∞–±—Å–æ–ª—é—Ç–Ω—ã–π –ø—É—Ç—å
     fs::path fullPath = std::filesystem::absolute(path);
 
-    // œÓÎÛ˜‡ÂÏ ÔÛÚ¸ Í ‰ËÂÍÚÓËË (·ÂÁ ËÏÂÌË Ù‡ÈÎ‡)
+    // –ü–æ–ª—É—á–∞–µ–º –ø—É—Ç—å –∫ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏–∏ (–±–µ–∑ –∏–º–µ–Ω–∏ —Ñ–∞–π–ª–∞)
     fs::path dirPath = fullPath.parent_path();
 
-    // œÓ‚ÂˇÂÏ ÒÛ˘ÂÒÚ‚ÛÂÚ ÎË ‰ËÂÍÚÓËˇ
+    // –ü—Ä–æ–≤–µ—Ä—è–µ–º —Å—É—â–µ—Å—Ç–≤—É–µ—Ç –ª–∏ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—è
     if (!std::filesystem::exists(fullPath)) {
         try {
-            // —ÓÁ‰‡ÂÏ ‚ÒÂ ÌÂ‰ÓÒÚ‡˛˘ËÂ ‰ËÂÍÚÓËË
+            // –°–æ–∑–¥–∞–µ–º –≤—Å–µ –Ω–µ–¥–æ—Å—Ç–∞—é—â–∏–µ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏–∏
             std::filesystem::create_directories(fullPath);
             this->path = fullPath;
         }
@@ -28,7 +28,6 @@ void SaverUserManager::save(Users& um) {
     }
     file << um.ToString() << std::endl;
     file.close();
-    std::cout << filename;
 }
 void SaverUserManager::save(UserManager& um) {
     for (auto& us : um.users) {
@@ -37,5 +36,55 @@ void SaverUserManager::save(UserManager& um) {
 }
 UserManager SaverUserManager::load() {
     UserManager um;
+
+    if (!fs::exists(path) || !fs::is_directory(path)) {
+        std::cout << "Directory does not exist: " << path << std::endl;
+        return um;
+    }
+    try {
+        for (const auto& entry : fs::directory_iterator(path)) {
+            if (entry.is_regular_file() && entry.path().extension() == ".usr") {
+                std::ifstream file(entry.path());
+                if (file.is_open()) {
+                    std::string firstLine;
+                    if (std::getline(file, firstLine)) {
+                        // –ü–∞—Ä—Å–∏–º —Å—Ç—Ä–æ–∫—É: Role~login~password~fullName~phoneNumber
+                        std::vector<std::string> parts;
+                        std::istringstream iss(firstLine);
+                        std::string part;
+
+                        // –†–∞–∑–¥–µ–ª—è–µ–º —Å—Ç—Ä–æ–∫—É –ø–æ ~
+                        while (std::getline(iss, part, '~')) {
+                            parts.push_back(part);
+                        }
+
+                        // –ü—Ä–æ–≤–µ—Ä—è–µ–º —á—Ç–æ –ø–æ–ª—É—á–∏–ª–∏ 5 —á–∞—Å—Ç–µ–π
+                        if (parts.size() == 5) {
+                            std::string role = parts[0];
+                            std::string login = parts[1];
+                            std::string password = parts[2];
+                            std::string fullName = parts[3];
+                            std::string phoneNumber = parts[4];
+
+                            // –°–æ–∑–¥–∞–µ–º –ø–æ–ª—å–∑–æ–≤–∞—Ç–µ–ª—è –≤ –∑–∞–≤–∏—Å–∏–º–æ—Å—Ç–∏ –æ—Ç —Ä–æ–ª–∏
+                            bool success = false;
+                            if (role == "Admin") {
+                                success = um.createAdmin(login, password, fullName, phoneNumber);
+                            }
+                            else if (role == "Guest") {
+                                success = um.registerGuest(login, password, fullName, phoneNumber);
+                            }
+                        }
+                        
+                    }
+                    file.close();
+                }
+            }
+        }
+    }
+    catch (const fs::filesystem_error& ex) {
+        std::cerr << "Filesystem error: " << ex.what() << std::endl;
+    }
+
     return um;
 }

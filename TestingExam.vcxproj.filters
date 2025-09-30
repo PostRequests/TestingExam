@@ -13,36 +13,75 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Исходные файлы\Tests">
+      <UniqueIdentifier>{f207cabd-6eb8-42f3-bccf-0746d3fd89a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Users">
+      <UniqueIdentifier>{74bac597-901c-437e-95a5-985bb9b28794}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TestingExam.cpp">
+    <ClCompile Include="Main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Users.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Guest.cpp">
-      <Filter>Исходные файлы</Filter>
+    <ClCompile Include="Question.cpp">
+      <Filter>Исходные файлы\Tests</Filter>
     </ClCompile>
     <ClCompile Include="Admin.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\Users</Filter>
+    </ClCompile>
+    <ClCompile Include="Guest.cpp">
+      <Filter>Исходные файлы\Users</Filter>
     </ClCompile>
     <ClCompile Include="UserManager.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\Users</Filter>
+    </ClCompile>
+    <ClCompile Include="SaverUserManager.cpp">
+      <Filter>Исходные файлы\Users</Filter>
+    </ClCompile>
+    <ClCompile Include="Users.cpp">
+      <Filter>Исходные файлы\Users</Filter>
+    </ClCompile>
+    <ClCompile Include="Test.cpp">
+      <Filter>Исходные файлы\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="TestManager.cpp">
+      <Filter>Исходные файлы\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="SaveTest.cpp">
+      <Filter>Исходные файлы\Tests</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Users.h">
+    <ClInclude Include="Option.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Guest.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="Question.h">
+      <Filter>Исходные файлы\Tests</Filter>
     </ClInclude>
     <ClInclude Include="Admin.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Исходные файлы\Users</Filter>
+    </ClInclude>
+    <ClInclude Include="Guest.h">
+      <Filter>Исходные файлы\Users</Filter>
+    </ClInclude>
+    <ClInclude Include="SaverUserManager.h">
+      <Filter>Исходные файлы\Users</Filter>
     </ClInclude>
     <ClInclude Include="UserManager.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Исходные файлы\Users</Filter>
+    </ClInclude>
+    <ClInclude Include="Users.h">
+      <Filter>Исходные файлы\Users</Filter>
+    </ClInclude>
+    <ClInclude Include="Test.h">
+      <Filter>Исходные файлы\Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="TestManager.h">
+      <Filter>Исходные файлы\Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveTest.h">
+      <Filter>Исходные файлы\Tests</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

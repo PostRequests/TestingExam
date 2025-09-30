@@ -14,7 +14,7 @@ SaverUserManager::SaverUserManager(const std::string& path) {
             this->path = fullPath;
         }
         catch (const fs::filesystem_error& ex) {
-            std::cerr << "Error creating directory: " << ex.what() << std::endl;
+            std::cerr << "Не удалось создать дерикторию: " << ex.what() << std::endl;
             throw;
         }
     }
@@ -24,7 +24,7 @@ void SaverUserManager::save(Users& um) {
     fs::path filename = path / (std::string(um.getLogin()) + ".usr");
     std::ofstream file(filename);
     if (!file.is_open()) {
-        throw std::runtime_error("Cannot open file for writing: " + filename.string());
+        throw std::exception("Не удалось открыть файл");
     }
     file << um.ToString() << std::endl;
     file.close();
@@ -34,6 +34,9 @@ void SaverUserManager::save(UserManager& um) {
         this->save(*us);
     }
 }
+
+
+
 UserManager SaverUserManager::load() {
     UserManager um;
 
@@ -83,7 +86,7 @@ UserManager SaverUserManager::load() {
         }
     }
     catch (const fs::filesystem_error& ex) {
-        std::cerr << "Filesystem error: " << ex.what() << std::endl;
+        std::cerr << "Ошибка загрузки: " << ex.what() << std::endl;
     }
 
     return um;

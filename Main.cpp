@@ -1,12 +1,13 @@
 ﻿
 #include <iostream>
 #include "SaverUserManager.h"
+#include "SaveTest.h"
+#include "TestManager.h"
 #include "Option.h"
 int main()
 {
     system("chcp 1251>nul");
-    std::string str = "Привет";
-    Admin z("login", "pwd1", "fullName", "89069746951");
+    /*Admin z("login", "pwd1", "fullName", "89069746951");
     Guest b("Guest", "Guest", "Guest", "89069746951");
     SaverUserManager sav(Option::pathUsers);
     sav.save(z);
@@ -14,6 +15,22 @@ int main()
     UserManager usrs =  sav.load();
     for (auto& a : usrs.users) {
         std::cout << a->ToString() << std::endl;
+    }*/
+    SaveTest savTest(Option::pathTests);
+    Test test("Мир");
+    // Вопрос 1: Столица России
+    Question q1;
+    q1.setQuestionText("Столица России");
+    q1.addAnswer("Москва", true)
+        .addAnswer("Красноярск", false)
+        .addAnswer("Санкт-Петербург", false)
+        .addAnswer("Новосибирск", false);
+    test.addQuestion(q1);
+    
+  
+    TestManager m =  savTest.load();
+    for (auto l : m.getListNameTest()) {
+        std::cout << l << std::endl;
     }
 }
 

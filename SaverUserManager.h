@@ -9,7 +9,7 @@ class SaverUserManager
 private:
 	fs::path path;
 public:
-	SaverUserManager(const std::string& path);
+	SaverUserManager(std::string& path);
 	void save(UserManager& um);
 	void save(Users& um);
 	UserManager load();

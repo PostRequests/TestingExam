@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
 namespace Option {
-	std::string pathUsers = "Users";
-	std::string pathTests = "Test";
+	inline std::string pathUsers = "Users";
+	inline std::string pathTests = "Tests";
 }

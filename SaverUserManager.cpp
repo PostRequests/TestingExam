@@ -1,5 +1,5 @@
 ﻿#include "SaverUserManager.h"
-SaverUserManager::SaverUserManager(const std::string& path) {
+SaverUserManager::SaverUserManager(std::string& path) {
     // Получаем абсолютный путь
     fs::path fullPath = std::filesystem::absolute(path);
 
@@ -39,7 +39,6 @@ void SaverUserManager::save(UserManager& um) {
 
 UserManager SaverUserManager::load() {
     UserManager um;
-
     if (!fs::exists(path) || !fs::is_directory(path)) {
         std::cout << "Directory does not exist: " << path << std::endl;
         return um;

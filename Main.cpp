@@ -29,6 +29,9 @@ int main()
     
   
     TestManager m =  savTest.load();
+    auto te = m.getTest("Мир");
+    std::cout << te->size() << std::endl;
+    std::cout << te->getScore(4) << std::endl;
     for (auto l : m.getListNameTest()) {
         std::cout << l << std::endl;
     }

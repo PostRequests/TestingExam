@@ -28,6 +28,13 @@ std::string Test::getTestName()
     return this->testName;
 }
 
+int Test::getScore(int curQuest)
+{
+    double scoreInPercent = 12 / (double)this->size();
+    int result = curQuest * scoreInPercent;
+    return result;
+}
+
 int Test::size() {
     return questions.size();
 }

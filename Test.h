@@ -16,7 +16,7 @@ public:
 
 	Question& getQuestion(int index);
 	std::string getTestName();
-
+	int getScore(int curQuest);
 	int size();
 };
 

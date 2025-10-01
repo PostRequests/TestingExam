@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -126,6 +126,13 @@
   <ItemGroup>
     <ClCompile Include="Admin.cpp" />
     <ClCompile Include="Guest.cpp" />
+    <ClCompile Include="Lib\Box\Box.cpp" />
+    <ClCompile Include="Lib\Color\Color.cpp" />
+    <ClCompile Include="Lib\KeyBoard\KeyBoard.cpp" />
+    <ClCompile Include="Lib\Menu\ItemM.cpp" />
+    <ClCompile Include="Lib\Menu\Menu.cpp" />
+    <ClCompile Include="Lib\Menu\MenuItem.cpp" />
+    <ClCompile Include="Lib\Position\Position.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Question.cpp" />
     <ClCompile Include="SaverUserManager.cpp" />
@@ -138,6 +145,13 @@
   <ItemGroup>
     <ClInclude Include="Admin.h" />
     <ClInclude Include="Guest.h" />
+    <ClInclude Include="Lib\Box\Box.h" />
+    <ClInclude Include="Lib\Color\Color.h" />
+    <ClInclude Include="Lib\KeyBoard\KeyBoard.h" />
+    <ClInclude Include="Lib\Menu\ItemM.h" />
+    <ClInclude Include="Lib\Menu\Menu.h" />
+    <ClInclude Include="Lib\Menu\MenuItem.h" />
+    <ClInclude Include="Lib\Position\Position.h" />
     <ClInclude Include="Option.h" />
     <ClInclude Include="Question.h" />
     <ClInclude Include="SaverUserManager.h" />

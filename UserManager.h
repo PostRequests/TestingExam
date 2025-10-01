@@ -9,25 +9,27 @@
 #include "Admin.h"
 #include <regex>
 
-class UserManager  // Убрано наследование от Users
+class UserManager  
 {
 
 public:
     std::vector<std::shared_ptr<Users>> users;
-    UserManager();  // Раскомментирован конструктор
+    UserManager();  
 
-    // Методы для работы с пользователями
+  
     bool registerGuest(const std::string& login, const std::string& password,
-        const std::string& fullName, const std::string& phoneNumber);
+        const std::string& fullName, const std::string& phoneNumber, bool hash = true);
 
     bool createAdmin(const std::string& login, const std::string& password,
-        const std::string& fullName, const std::string& phoneNumber);
+        const std::string& fullName, const std::string& phoneNumber, bool hash = true);
+
+    std::shared_ptr<Users> getUsers(const std::string& login, const std::string& password);
 
     bool isValidPhoneNumber(std::string phone);
     bool isValidPassword(std::string password);
     bool isValidLogin(std::string login);
     bool isValidFullName(std::string fullName);
 
-private:
+
   
 };

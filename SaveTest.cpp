@@ -46,6 +46,7 @@ Question parseQuestion(const std::string& line) {
 SaveTest::SaveTest(const std::string& path)
 {
     // Получаем абсолютный путь
+
     fs::path fullPath = std::filesystem::absolute(path);
 
     // Получаем путь к директории (без имени файла)

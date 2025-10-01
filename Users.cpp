@@ -2,9 +2,9 @@
 #include <sstream>
 #include <string>
 #include <iostream>
-Users::Users(const std::string& login, const std::string& passwordHash,
-    const std::string& fullName,const std::string& phoneNumber)
-    :  login(login), pwd(hashPassword(passwordHash)),
+Users::Users(const std::string& login, const std::string& password,
+    const std::string& fullName,const std::string& phoneNumber, bool hash)
+    :  login(login), pwd((hash)?hashPassword(password): password),
     fullName(fullName), 
     phoneNumber(phoneNumber) {
 }
@@ -14,8 +14,11 @@ std::string Users::getFullName() const { return fullName; }
 std::string Users::getPhoneNumber() const { return phoneNumber; }
 
 // Сеттеры
-void Users::setPassword(const std::string& newPWD) {
-    pwd = hashPassword(newPWD);
+void Users::setPassword(const std::string& newPWD, bool hash) {
+    if (hash)
+        pwd = hashPassword(newPWD);
+    else
+        pwd = newPWD;
 }
 
 void Users::setFullName(const std::string& fullName) {
@@ -28,7 +31,7 @@ void Users::setPhoneNumber(const std::string& phoneNumber) {
 
 
 
-// Метод шифрования пароля
+
 std::string Users::hashPassword(const std::string& password) {
     std::ostringstream oss;
     for (size_t i = 0; i < password.size(); i++) {

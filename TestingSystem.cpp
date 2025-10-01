@@ -14,35 +14,9 @@ TestingSystem::TestingSystem() {
     isAdmin = false;
 }
 
-void TestingSystem::initializeAdmin() {
-    if (userManager.users.empty()) {
-        std::cout << "=== Первоначальная настройка системы ===" << std::endl;
-        std::cout << "Создание учетной записи администратора:" << std::endl;
 
-        std::string login, password, fullName, phone;
-
-        std::cout << "Логин: ";
-        std::cin >> login;
-        std::cout << "Пароль: ";
-        std::cin >> password;
-        std::cin.ignore();
-        std::cout << "ФИО: ";
-        std::getline(std::cin, fullName);
-        std::cout << "Телефон: ";
-        std::getline(std::cin, phone);
-
-        if (userManager.createAdmin(login, password, fullName, phone)) {
-            userSaver.save(userManager);
-            std::cout << "Администратор успешно создан!" << std::endl;
-        }
-        else {
-            std::cout << "Ошибка при создании администратора!" << std::endl;
-        }
-    }
-}
 
 void TestingSystem::run() {
-    initializeAdmin();
 
     Menu mainMenu(5, 5, "Система тестирования");
     mainMenu.addItem("Вход в систему", [this]() {
@@ -51,23 +25,20 @@ void TestingSystem::run() {
         std::cin >> login;
         std::cout << "Пароль: ";
         std::cin >> password;
-
-        // Поиск пользователя
-        for (const auto& user : userManager.users) {
-            if (user->getLogin() == login && user->checkPassword(password)) {
-                currentUserLogin = login;
-                isAdmin = (user->getRole() == "Admin");
-
-                if (isAdmin) {
-                    adminMenu();
-                }
-                else {
-                    guestMenu();
-                }
-                return;
+        auto user = userManager.getUsers(login, password);
+        if (user != nullptr) {
+            isAdmin = (user->getRole() == "Admin");
+            if (isAdmin) {
+                adminMenu();
             }
+            else {
+                guestMenu();
+            }
+            return;
         }
+
         std::cout << "Неверный логин или пароль!" << std::endl;
+        system("pause>nul");
         });
 
     mainMenu.addItem("Регистрация", [this]() {
@@ -256,6 +227,7 @@ void TestingSystem::manageUsers() {
             std::cout << "Роль: " << user->getRole() << std::endl;
             std::cout << "------------------------" << std::endl;
         }
+        system("pause>nul");
         });
 
     userMenu.addItem("Создать администратора", [this]() {
@@ -302,6 +274,7 @@ void TestingSystem::manageTests() {
             std::cout << "Количество вопросов: " << test->size() << std::endl;
             std::cout << "------------------------" << std::endl;
         }
+        system("pause>nul");
         });
 
     testMenu.addItem("Создать тест", [this]() {
@@ -373,6 +346,7 @@ void TestingSystem::viewStatistics() {
         std::cout << "Всего пользователей: " << totalUsers << std::endl;
         std::cout << "Всего пройденных тестов: " << completedTests << std::endl;
         std::cout << "Всего тестов в системе: " << testManager.getListNameTest().size() << std::endl;
+        system("pause>nul");
         });
 
     statsMenu.addItem("Статистика по тестам", [this]() {
@@ -402,11 +376,13 @@ void TestingSystem::viewStatistics() {
             std::cout << "Пройдено раз: " << completed << std::endl;
             std::cout << "Средний балл: " << avgScore << "/12" << std::endl;
         }
+        system("pause>nul");
         });
 
     statsMenu.addItem("Экспорт в файл", [this]() {
         sessionManager.saveToFile("statistics_export.dat");
         std::cout << "Статистика экспортирована в файл statistics_export.dat" << std::endl;
+        system("pause>nul");
         });
 
     statsMenu.addItem("Назад", []() {});

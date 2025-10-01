@@ -54,13 +54,9 @@ UserManager SaverUserManager::load() {
                         std::vector<std::string> parts;
                         std::istringstream iss(firstLine);
                         std::string part;
-
-                        // Разделяем строку по ~
                         while (std::getline(iss, part, '~')) {
                             parts.push_back(part);
                         }
-
-                        // Проверяем что получили 5 частей
                         if (parts.size() == 5) {
                             std::string role = parts[0];
                             std::string login = parts[1];
@@ -71,11 +67,12 @@ UserManager SaverUserManager::load() {
                             // Создаем пользователя в зависимости от роли
                             bool success = false;
                             if (role == "Admin") {
-                                success = um.createAdmin(login, password, fullName, phoneNumber);
+                                success = um.createAdmin(login, password, fullName, phoneNumber, false);
                             }
                             else if (role == "Guest") {
-                                success = um.registerGuest(login, password, fullName, phoneNumber);
+                                success = um.registerGuest(login, password, fullName, phoneNumber, false);
                             }
+                            
                         }
                         
                     }

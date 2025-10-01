@@ -7,35 +7,32 @@
 class Users
 {
 protected:
-    std::string login;
+    std::string login; // Логин
     std::string pwd; // Пароль 
-    std::string fullName;
-    std::string phoneNumber;
+    std::string fullName; // Полное имя
+    std::string phoneNumber; // Телефонный номер
 
 public:
-    // Конструкторы
     Users(const std::string& login, const std::string& passwordHash,
-        const std::string& fullName, const std::string& phoneNumber);
+        const std::string& fullName, const std::string& phoneNumber, bool hash);
 
-    virtual ~Users() = default;
 
-    // Геттеры
-    std::string getLogin() const;
-    std::string getFullName() const;
-    std::string getPhoneNumber() const;
+    std::string getLogin() const; //Возвращает пароль
+    std::string getFullName() const;  //Возвращает имя
+    std::string getPhoneNumber() const;  //Возвращает номер телефона
+    /// <summary>
+    /// Устанавливает пароль
+    /// </summary>
+    /// <param name="newPassword">Необходимый пароль</param>
+    /// <param name="hash">treue если пароль нужно зашифровать</param>
+    void setPassword(const std::string& newPassword, bool hash = true);
+    void setFullName(const std::string& fullName); //Устанавливает полное имя
+    void setPhoneNumber(const std::string& phoneNumber); //Устанавливает и проверяет телефонный номер на соответствие
 
-    // Сеттеры
-    void setPassword(const std::string& newPasswordHash);
-    void setFullName(const std::string& fullName);
-    void setPhoneNumber(const std::string& phoneNumber);
+    virtual std::string getRole() const = 0; // Возвращает "Admin" или "Guest"
+    std::string ToString() const; //Возвращает строку для сохранения в файл
 
-    //// Виртуальные методы для полиморфизма
-    virtual std::string getRole() const = 0;
-    std::string ToString() const;
+    static std::string hashPassword(const std::string& password); // Метод шифрования пароля
 
-    // Статический метод для пароля
-    static std::string hashPassword(const std::string& password);
-
-    // Метод для проверки пароля
-    bool checkPassword(const std::string& password) const;
+    bool checkPassword(const std::string& password) const;   // Метод для проверки пароля
 };

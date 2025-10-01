@@ -18,5 +18,4 @@ public:
     Menu& addItem(const std::string& head, const std::function<void()>& fEnter);
     void run();
     void display();
-    void clearScreen();
 };

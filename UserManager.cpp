@@ -6,30 +6,39 @@ UserManager::UserManager() {}
 
 
 bool UserManager::registerGuest(const std::string& login, const std::string& password,
-    const std::string& fullName, const std::string& phoneNumber) {
+    const std::string& fullName, const std::string& phoneNumber, bool hash) {
 
     if (!isValidPassword(password) ||
         !isValidPhoneNumber(phoneNumber) || !isValidLogin(login) || !isValidFullName(fullName)) {
         return false;
     }
 
-    auto guest = std::make_shared<Guest>(login, password,
-        fullName, phoneNumber);
+    auto guest = std::make_shared<Guest>(login, password, fullName, phoneNumber, hash);
     users.push_back(guest);
     return true;
 }
 
 bool UserManager::createAdmin(const std::string& login, const std::string& password,
-    const std::string& fullName, const std::string& phoneNumber) {
+    const std::string& fullName, const std::string& phoneNumber, bool hash) {
 
     if (!isValidPassword(password) ||
         !isValidPhoneNumber(phoneNumber) || !isValidLogin(login) || !isValidFullName(fullName)) {
         return false;
     }
 
-    auto admin = std::make_shared<Admin>(login, password, fullName, phoneNumber);
+    auto admin = std::make_shared<Admin>(login, password, fullName, phoneNumber, hash);
     users.push_back(admin);
     return true;
+}
+
+std::shared_ptr<Users> UserManager::getUsers(const std::string& login, const std::string& password)
+{
+    for (const auto& user : users) {
+        if (user->getLogin() == login && user->checkPassword(password)) {
+            return user;
+        }
+    }
+    return nullptr;
 }
 
 

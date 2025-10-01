@@ -10,12 +10,9 @@ Menu& Menu::addItem(const std::string& head, const std::function<void()>& fEnter
     return *this;
 }
 
-void Menu::clearScreen() {
-    system("cls");
-}
 
 void Menu::display() {
-    clearScreen();
+    system("cls");
 
     // Вывод заголовка
     std::cout << "\n\n";
@@ -51,11 +48,11 @@ void Menu::run() {
         }
         else if (key == 13) { // Enter
             if (selected >= 0 && selected < actions.size()) {
-                clearScreen();
+                system("cls");
                 actions[selected]();
-                if (selected != items.size() - 1) { // Если не последний пункт (Выход)
-                    std::cout << "\n\nНажмите любую клавишу для продолжения...";
-                    _getch();
+                if (selected == items.size() - 1) { 
+                    //system("pause>nul");
+                    return;
                 }
             }
         }

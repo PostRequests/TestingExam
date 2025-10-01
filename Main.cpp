@@ -3,6 +3,7 @@
 #include "SaverUserManager.h"
 #include "SaveTest.h"
 #include "TestManager.h"
+#include "Lib/Menu/Menu.h"
 #include "Option.h"
 int main()
 {
@@ -35,5 +36,12 @@ int main()
     for (auto l : m.getListNameTest()) {
         std::cout << l << std::endl;
     }
+
+    Menu menu(10, 10, "Menu");
+    menu.addItem("Ьенг", [](){});
+    menu.addItem("Ьенг", []() {});
+    menu.addItem("Ьенг", []() {});
+    menu.addItem("Ьенг", []() {});
+    menu.run();
 }
 

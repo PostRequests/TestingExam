@@ -19,6 +19,9 @@
     <Filter Include="Исходные файлы\Users">
       <UniqueIdentifier>{74bac597-901c-437e-95a5-985bb9b28794}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\MyLib">
+      <UniqueIdentifier>{95c1f69f-d17b-4bc9-83da-e3d506950683}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -51,6 +54,27 @@
     <ClCompile Include="SaveTest.cpp">
       <Filter>Исходные файлы\Tests</Filter>
     </ClCompile>
+    <ClCompile Include="Lib\Box\Box.cpp">
+      <Filter>Исходные файлы\MyLib</Filter>
+    </ClCompile>
+    <ClCompile Include="Lib\Color\Color.cpp">
+      <Filter>Исходные файлы\MyLib</Filter>
+    </ClCompile>
+    <ClCompile Include="Lib\Menu\ItemM.cpp">
+      <Filter>Исходные файлы\MyLib</Filter>
+    </ClCompile>
+    <ClCompile Include="Lib\KeyBoard\KeyBoard.cpp">
+      <Filter>Исходные файлы\MyLib</Filter>
+    </ClCompile>
+    <ClCompile Include="Lib\Menu\Menu.cpp">
+      <Filter>Исходные файлы\MyLib</Filter>
+    </ClCompile>
+    <ClCompile Include="Lib\Menu\MenuItem.cpp">
+      <Filter>Исходные файлы\MyLib</Filter>
+    </ClCompile>
+    <ClCompile Include="Lib\Position\Position.cpp">
+      <Filter>Исходные файлы\MyLib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Option.h">
@@ -82,6 +106,27 @@
     </ClInclude>
     <ClInclude Include="SaveTest.h">
       <Filter>Исходные файлы\Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\Box\Box.h">
+      <Filter>Исходные файлы\MyLib</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\Color\Color.h">
+      <Filter>Исходные файлы\MyLib</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\Menu\ItemM.h">
+      <Filter>Исходные файлы\MyLib</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\KeyBoard\KeyBoard.h">
+      <Filter>Исходные файлы\MyLib</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\Menu\Menu.h">
+      <Filter>Исходные файлы\MyLib</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\Menu\MenuItem.h">
+      <Filter>Исходные файлы\MyLib</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\Position\Position.h">
+      <Filter>Исходные файлы\MyLib</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -34,7 +34,7 @@ void Menu::display() {
     std::cout << "\n\nИспользуйте стрелки для навигации, Enter для выбора, Esc для выхода";
 }
 
-void Menu::run() {
+int Menu::run() {
     char key;
     do {
         display();
@@ -51,10 +51,10 @@ void Menu::run() {
                 system("cls");
                 actions[selected]();
                 if (selected == items.size() - 1) { 
-                    //system("pause>nul");
-                    return;
+                    return selected;
                 }
             }
         }
     } while (key != 27); // Esc для выхода
+    return selected;
 }

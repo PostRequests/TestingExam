@@ -5,6 +5,9 @@
 #include "SaverUserManager.h"
 #include "SaveTest.h"
 #include "Option.h"
+#include <ctime>
+#include <iomanip>
+#include <sstream>
 #include <memory>
 
 class TestingSystem {

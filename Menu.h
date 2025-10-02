@@ -16,6 +16,6 @@ private:
 public:
     Menu(int x, int y, const std::string& title);
     Menu& addItem(const std::string& head, const std::function<void()>& fEnter);
-    void run();
+    int run();
     void display();
 };

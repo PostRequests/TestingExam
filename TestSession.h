@@ -13,7 +13,7 @@ private:
     bool completed;
 
 public:
-    TestSession(const std::string& userLogin, const std::string& testName);
+    TestSession(const std::string& userLogin, const std::string& testName, const time_t time);
 
     void setScore(int score, int maxScore);
     void markCompleted();

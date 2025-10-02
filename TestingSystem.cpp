@@ -28,6 +28,7 @@ void TestingSystem::run() {
         auto user = userManager.getUsers(login, password);
         if (user != nullptr) {
             isAdmin = (user->getRole() == "Admin");
+            currentUserLogin = user->getLogin();
             if (isAdmin) {
                 adminMenu();
             }
@@ -129,7 +130,7 @@ void TestingSystem::adminMenu() {
 void TestingSystem::takeTest(const std::string& testName) {
     try {
         Test* test = testManager.getTest(testName);
-        TestSession session(currentUserLogin, testName);
+        TestSession session(currentUserLogin, testName, std::time(0));
 
         int correctAnswers = 0;
         int totalQuestions = test->size();
@@ -162,19 +163,13 @@ void TestingSystem::takeTest(const std::string& testName) {
                 if (choice >= 0 && choice < answers.size()) {
                     if (question.checkAnswer(answers[choice])) {
                         correctAnswers++;
-                        std::cout << "✓ Правильно!" << std::endl;
                     }
-                    else {
-                        std::cout << "✗ Неправильно!" << std::endl;
-                    }
-                }
-                else {
-                    std::cout << "✗ Неправильный номер ответа!" << std::endl;
                 }
             }
             catch (...) {
                 std::cout << "✗ Неверный ввод!" << std::endl;
             }
+            system("cls");
         }
 
         int score = test->getScore(correctAnswers);
@@ -188,31 +183,46 @@ void TestingSystem::takeTest(const std::string& testName) {
         std::cout << "Баллы: " << score << "/12" << std::endl;
         std::cout << "Оценка: " << session.getGrade() << std::endl;
         std::cout << "Процент правильных ответов: " << session.getPercentage() << "%" << std::endl;
-
+        system("pause>nul");
     }
     catch (const std::exception& e) {
         std::cout << "Ошибка: " << e.what() << std::endl;
     }
 }
+std::string timeToString(time_t timestamp) {
+    std::tm timeInfo = {};
 
+    // Безопасная версия для Windows
+    errno_t err = localtime_s(&timeInfo, &timestamp);
+    if (err != 0) {
+        return "Invalid date";
+    }
+
+    std::ostringstream oss;
+    oss << std::put_time(&timeInfo, "%H:%M:%S  %m.%d.%Y");
+    return oss.str();
+}
 void TestingSystem::viewTestResults() {
     auto userSessions = sessionManager.getUserSessions(currentUserLogin);
 
     if (userSessions.empty()) {
         std::cout << "У вас пока нет результатов тестирования." << std::endl;
+        system("pause>nul");
         return;
     }
 
     std::cout << "=== Ваши результаты тестирования ===" << std::endl;
     for (const auto& session : userSessions) {
-        if (session->isCompleted()) {
-            std::cout << "\nТест: " << session->getTestName() << std::endl;
-            std::cout << "Баллы: " << session->getScore() << "/" << session->getMaxScore() << std::endl;
-            std::cout << "Оценка: " << session->getGrade() << std::endl;
-            std::cout << "Процент: " << session->getPercentage() << "%" << std::endl;
-            //std::cout << "Дата: " << std::ctime(&session->getDate());
+        if (session.isCompleted()) {
+            std::cout << "\nТест: " << session.getTestName() << std::endl;
+            std::cout << "Баллы: " << session.getScore() << "/" << session.getMaxScore() << std::endl;
+            std::cout << "Оценка: " << session.getGrade() << std::endl;
+            std::cout << "Процент: " << session.getPercentage() << "%" << std::endl;
+            std::cout << "Дата: " << timeToString(session.getDate()) << std::endl;
+           
         }
     }
+    system("pause>nul");
 }
 
 void TestingSystem::manageUsers() {
@@ -337,7 +347,7 @@ void TestingSystem::viewStatistics() {
         int totalUsers = userManager.users.size();
 
         for (const auto& session : allSessions) {
-            if (session->isCompleted()) {
+            if (session.isCompleted()) {
                 completedTests++;
             }
         }
@@ -362,9 +372,9 @@ void TestingSystem::viewStatistics() {
             double avgScore = 0;
 
             for (const auto& session : testSessions) {
-                if (session->isCompleted()) {
+                if (session.isCompleted()) {
                     completed++;
-                    avgScore += session->getScore();
+                    avgScore += session.getScore();
                 }
             }
 

@@ -2,9 +2,10 @@
 #include <sstream>
 #include <iomanip>
 
-TestSession::TestSession(const std::string& userLogin, const std::string& testName)
+TestSession::TestSession(const std::string& userLogin, const std::string& testName, const time_t ntime)
     : userLogin(userLogin), testName(testName), score(0), maxScore(12),
-    date(time(nullptr)), completed(false) {
+    date(ntime), completed(false) {
+
 }
 
 void TestSession::setScore(int score, int maxScore) {
@@ -29,7 +30,7 @@ double TestSession::getPercentage() const {
 
 std::string TestSession::getGrade() const {
     double percentage = getPercentage();
-    if (percentage >= 95) return "12 (Отлично)";
+    if (percentage >= 95) return "12";
     else if (percentage >= 90) return "11";
     else if (percentage >= 85) return "10";
     else if (percentage >= 80) return "9";
@@ -41,7 +42,7 @@ std::string TestSession::getGrade() const {
     else if (percentage >= 50) return "3";
     else if (percentage >= 40) return "2";
     else if (percentage >= 25) return "1";
-    else return "0 (Неудовлетворительно)";
+    else return "0";
 }
 
 std::string TestSession::toString() const {

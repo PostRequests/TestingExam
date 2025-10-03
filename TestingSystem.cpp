@@ -25,7 +25,7 @@ void TestingSystem::run() {
         std::cin >> login;
         std::cout << "Пароль: ";
         std::cin >> password;
-        auto user = userManager.getUsers(login, password);
+        auto user = userManager.getUser(login, password);
         if (user != nullptr) {
             isAdmin = (user->getRole() == "Admin");
             currentUserLogin = user->getLogin();
@@ -164,8 +164,6 @@ void TestingSystem::takeTest(const std::string& testName) {
     std::cout << "\n=== Результаты тестирования ===" << std::endl;
     std::cout << "Правильных ответов: " << correctAnswers << "/" << totalQuestions << std::endl;
     std::cout << "Баллы: " << score << "/12" << std::endl;
-    std::cout << "Оценка: " << session.getGrade() << std::endl;
-    std::cout << "Процент правильных ответов: " << session.getPercentage() << "%" << std::endl;
     system("pause>nul");
    
 }
@@ -173,7 +171,7 @@ std::string timeToString(time_t timestamp) {
     std::tm timeInfo = {};
     errno_t err = localtime_s(&timeInfo, &timestamp);
     if (err != 0) {
-        return "Invalid date";
+        return "Не правильная дата";
     }
 
     std::ostringstream oss;
@@ -194,8 +192,6 @@ void TestingSystem::viewTestResults() {
         if (session.isCompleted()) {
             std::cout << "\nТест: " << session.getTestName() << std::endl;
             std::cout << "Баллы: " << session.getScore() << "/" << session.getMaxScore() << std::endl;
-            std::cout << "Оценка: " << session.getGrade() << std::endl;
-            std::cout << "Процент: " << session.getPercentage() << "%" << std::endl;
             std::cout << "Дата: " << timeToString(session.getDate()) << std::endl;
            
         }
@@ -283,6 +279,7 @@ void TestingSystem::manageTests() {
             std::string questionText;
 
             std::cout << "\nВопрос " << (i + 1) << ": ";
+
             std::getline(std::cin, questionText);
             q.setQuestionText(questionText);
 
@@ -369,7 +366,23 @@ void TestingSystem::viewStatistics() {
 
     statsMenu.addItem("По пользователям", [this]() {
         Menu menu(1,1, "Выберете пользователя");
-        //userManager.getUsers();
+        std::vector<std::string> users = userManager.getAllUserLogin();
+        for (std::string user : users) {
+            menu.addItem(user,[this, user](){
+                auto allSessions = sessionManager.getAllSessions();
+
+                for (const auto& session : allSessions) {
+                    if (session.getUserLogin() == user) {
+                        std::cout << "\nТест: " << session.getTestName() << std::endl;
+                        std::cout << "Баллы: " << session.getScore() << "/" << session.getMaxScore() << std::endl;
+                        std::cout << "Дата: " << timeToString(session.getDate()) << std::endl;
+                    }
+                    
+                }
+                system("pause>nul");
+                });
+        }
+        menu.run();
         system("pause>nul");
         });
 

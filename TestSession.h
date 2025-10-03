@@ -22,8 +22,6 @@ public:
     std::string getTestName() const; // Какой тест
     int getScore() const; // Сколько баллов набрал
     int getMaxScore() const; //сколько можно было набрать максимум
-    double getPercentage() const; //Вычисляет процент правильных ответов
-    std::string getGrade() const; //Преобразует процент в оценку по 12-балльной системе
     time_t getDate() const; //Когда проходили тест
     bool isCompleted() const; //Тест уже завершен
 

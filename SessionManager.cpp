@@ -45,7 +45,7 @@ void SessionManager::saveToFile(const std::string& filename) const {
 void SessionManager::loadFromFile(const std::string& filename) {
     std::ifstream file(filename);
     if (!file.is_open()) {
-        return; // Файл может не существовать при первом запуске
+        return;
     }
 
     sessions.clear();

@@ -24,26 +24,9 @@ int TestSession::getMaxScore() const { return maxScore; }
 bool TestSession::isCompleted() const { return completed; }
 time_t TestSession::getDate() const { return date; }
 
-double TestSession::getPercentage() const {
-    return (maxScore > 0) ? (static_cast<double>(score) / maxScore) * 100 : 0;
-}
 
-std::string TestSession::getGrade() const {
-    double percentage = getPercentage();
-    if (percentage >= 95) return "12";
-    else if (percentage >= 90) return "11";
-    else if (percentage >= 85) return "10";
-    else if (percentage >= 80) return "9";
-    else if (percentage >= 75) return "8";
-    else if (percentage >= 70) return "7";
-    else if (percentage >= 65) return "6";
-    else if (percentage >= 60) return "5";
-    else if (percentage >= 55) return "4";
-    else if (percentage >= 50) return "3";
-    else if (percentage >= 40) return "2";
-    else if (percentage >= 25) return "1";
-    else return "0";
-}
+
+
 
 std::string TestSession::toString() const {
     std::ostringstream oss;

@@ -31,7 +31,7 @@ bool UserManager::createAdmin(const std::string& login, const std::string& passw
     return true;
 }
 
-std::shared_ptr<Users> UserManager::getUsers(const std::string& login, const std::string& password)
+std::shared_ptr<Users> UserManager::getUser(const std::string& login, const std::string& password)
 {
     for (const auto& user : users) {
         if (user->getLogin() == login && user->checkPassword(password)) {
@@ -39,6 +39,16 @@ std::shared_ptr<Users> UserManager::getUsers(const std::string& login, const std
         }
     }
     return nullptr;
+}
+
+std::vector<std::string> UserManager::getAllUserLogin()
+{
+    std::vector<std::string> allUsersName;
+    for (const auto& user : users) {
+        if(user->getRole() == "Guest")
+            allUsersName.push_back(user->getLogin());
+    }
+    return allUsersName;
 }
 
 

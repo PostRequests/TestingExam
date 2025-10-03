@@ -23,7 +23,9 @@ public:
     bool createAdmin(const std::string& login, const std::string& password,
         const std::string& fullName, const std::string& phoneNumber, bool hash = true);
 
-    std::shared_ptr<Users> getUsers(const std::string& login, const std::string& password);
+    std::shared_ptr<Users> getUser(const std::string& login, const std::string& password);
+
+    std::vector<std::string> getAllUserLogin();
 
     bool isValidPhoneNumber(std::string phone);
     bool isValidPassword(std::string password);

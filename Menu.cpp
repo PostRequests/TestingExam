@@ -1,7 +1,7 @@
 #include "Menu.h"
 
-Menu::Menu(int x, int y, const std::string& title)
-    : x(x), y(y), title(title), selected(0) {
+Menu::Menu(int x, int y, const std::string& title, bool exitOnEnter)
+    : x(x), y(y), title(title), selected(0), exitOnEnter(exitOnEnter) {
 }
 
 Menu& Menu::addItem(const std::string& head, const std::function<void()>& fEnter) {
@@ -14,12 +14,10 @@ Menu& Menu::addItem(const std::string& head, const std::function<void()>& fEnter
 void Menu::display() {
     system("cls");
 
-    // Вывод заголовка
     std::cout << "\n\n";
     for (int i = 0; i < x; i++) std::cout << " ";
     std::cout << "=== " << title << " ===\n\n";
 
-    // Вывод пунктов меню
     for (size_t i = 0; i < items.size(); i++) {
         for (int j = 0; j < x; j++) std::cout << " ";
 
@@ -51,6 +49,9 @@ int Menu::run() {
                 system("cls");
                 actions[selected]();
                 if (selected == items.size() - 1) { 
+                    return selected;
+                }
+                else if (exitOnEnter) {
                     return selected;
                 }
             }

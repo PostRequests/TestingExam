@@ -4,7 +4,7 @@ void Question::setQuestionText(const std::string& text) {
     questionText = text;
 }
 
-std::string Question::getQuestionText() const {
+std::string Question::getQuestionText() {
     return questionText;
 }
 

@@ -128,71 +128,49 @@ void TestingSystem::adminMenu() {
 }
 
 void TestingSystem::takeTest(const std::string& testName) {
-    try {
-        Test* test = testManager.getTest(testName);
-        TestSession session(currentUserLogin, testName, std::time(0));
+   
+    Test* test = testManager.getTest(testName);
+    TestSession session(currentUserLogin, testName, std::time(0));
 
-        int correctAnswers = 0;
-        int totalQuestions = test->size();
+    int correctAnswers = 0;
+    int totalQuestions = test->size();
 
-        std::cout << "=== Начало теста: " << testName << " ===" << std::endl;
-        std::cout << "Количество вопросов: " << totalQuestions << std::endl;
-        std::cout << "Для выхода введите 'exit' в любой момент\n" << std::endl;
+    std::cout << "=== Начало теста: " << testName << " ===" << std::endl;
+    std::cout << "Количество вопросов: " << totalQuestions << std::endl;
+    std::cout << "Для выхода введите 'exit' в любой момент\n" << std::endl;
 
-        for (int i = 0; i < totalQuestions; i++) {
-            Question& question = test->getQuestion(i);
+    for (int i = 0; i < totalQuestions; i++) {
+        Question& question = test->getQuestion(i);
+        Menu menu(2,2, question.getQuestionText(), true);
+           
 
-            std::cout << "\nВопрос " << (i + 1) << ": " << question.getQuestionText() << std::endl;
-
-            auto answers = question.getAnswers();
-            for (size_t j = 0; j < answers.size(); j++) {
-                std::cout << "  " << (j + 1) << ". " << answers[j] << std::endl;
-            }
-
-            std::cout << "\nВаш ответ (введите номер): ";
-            std::string input;
-            std::cin >> input;
-
-            if (input == "exit") {
-                std::cout << "Тестирование прервано." << std::endl;
-                return;
-            }
-
-            try {
-                int choice = std::stoi(input) - 1;
-                if (choice >= 0 && choice < answers.size()) {
-                    if (question.checkAnswer(answers[choice])) {
-                        correctAnswers++;
-                    }
-                }
-            }
-            catch (...) {
-                std::cout << "✗ Неверный ввод!" << std::endl;
-            }
-            system("cls");
+        auto answers = question.getAnswers();
+        for (size_t j = 0; j < answers.size(); j++) {
+            menu.addItem(answers[j],[this](){});
         }
-
-        int score = test->getScore(correctAnswers);
-        session.setScore(score, 12);
-        session.markCompleted();
-        sessionManager.addSession(session);
-        sessionManager.saveToFile("sessions.dat");
-
-        std::cout << "\n=== Результаты тестирования ===" << std::endl;
-        std::cout << "Правильных ответов: " << correctAnswers << "/" << totalQuestions << std::endl;
-        std::cout << "Баллы: " << score << "/12" << std::endl;
-        std::cout << "Оценка: " << session.getGrade() << std::endl;
-        std::cout << "Процент правильных ответов: " << session.getPercentage() << "%" << std::endl;
-        system("pause>nul");
+        int choice = menu.run();
+        if (question.checkAnswer(answers[choice])) {
+            correctAnswers++;
+        }
+           
     }
-    catch (const std::exception& e) {
-        std::cout << "Ошибка: " << e.what() << std::endl;
-    }
+
+    int score = test->getScore(correctAnswers);
+    session.setScore(score, 12);
+    session.markCompleted();
+    sessionManager.addSession(session);
+    sessionManager.saveToFile("sessions.dat");
+
+    std::cout << "\n=== Результаты тестирования ===" << std::endl;
+    std::cout << "Правильных ответов: " << correctAnswers << "/" << totalQuestions << std::endl;
+    std::cout << "Баллы: " << score << "/12" << std::endl;
+    std::cout << "Оценка: " << session.getGrade() << std::endl;
+    std::cout << "Процент правильных ответов: " << session.getPercentage() << "%" << std::endl;
+    system("pause>nul");
+   
 }
 std::string timeToString(time_t timestamp) {
     std::tm timeInfo = {};
-
-    // Безопасная версия для Windows
     errno_t err = localtime_s(&timeInfo, &timestamp);
     if (err != 0) {
         return "Invalid date";
@@ -389,9 +367,9 @@ void TestingSystem::viewStatistics() {
         system("pause>nul");
         });
 
-    statsMenu.addItem("Экспорт в файл", [this]() {
-        sessionManager.saveToFile("statistics_export.dat");
-        std::cout << "Статистика экспортирована в файл statistics_export.dat" << std::endl;
+    statsMenu.addItem("По пользователям", [this]() {
+        Menu menu(1,1, "Выберете пользователя");
+        //userManager.getUsers();
         system("pause>nul");
         });
 

@@ -15,17 +15,17 @@ private:
 public:
     TestSession(const std::string& userLogin, const std::string& testName, const time_t time);
 
-    void setScore(int score, int maxScore);
-    void markCompleted();
+    void setScore(int score, int maxScore); //Устанавливает количество набранных баллов и максимально возможный балл.
+    void markCompleted(); //Отмечает тест как завершенный.
 
-    std::string getUserLogin() const;
-    std::string getTestName() const;
-    int getScore() const;
-    int getMaxScore() const;
-    double getPercentage() const;
-    std::string getGrade() const;
-    time_t getDate() const;
-    bool isCompleted() const;
+    std::string getUserLogin() const; //Кто проходил тест?
+    std::string getTestName() const; // Какой тест
+    int getScore() const; // Сколько баллов набрал
+    int getMaxScore() const; //сколько можно было набрать максимум
+    double getPercentage() const; //Вычисляет процент правильных ответов
+    std::string getGrade() const; //Преобразует процент в оценку по 12-балльной системе
+    time_t getDate() const; //Когда проходили тест
+    bool isCompleted() const; //Тест уже завершен
 
-    std::string toString() const;
+    std::string toString() const; //Преобразует все данные в одну строку специального формата
 };

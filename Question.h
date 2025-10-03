@@ -14,7 +14,7 @@ public:
 	Question& addAnswer(const std::string& answer, bool isCorrect);
 	void removeAnswer(const std::string& answer);
 
-	std::string getQuestionText() const;
+	std::string getQuestionText();
 	std::vector<std::string> getAnswers() const;
 
 	bool checkAnswer(const std::string& answer);

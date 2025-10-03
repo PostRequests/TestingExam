@@ -12,9 +12,9 @@ private:
     int x, y;
     std::string title;
     int selected;
-
+    bool exitOnEnter;
 public:
-    Menu(int x, int y, const std::string& title);
+    Menu(int x, int y, const std::string& title, bool exitOnEnter = false);
     Menu& addItem(const std::string& head, const std::function<void()>& fEnter);
     int run();
     void display();

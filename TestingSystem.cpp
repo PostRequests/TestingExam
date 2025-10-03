@@ -63,6 +63,7 @@ void TestingSystem::run() {
         else {
             std::cout << "Ошибка регистрации! Проверьте введенные данные." << std::endl;
         }
+        system("pause>nul");
         });
 
     mainMenu.addItem("Выход", []() {
@@ -377,13 +378,12 @@ void TestingSystem::viewStatistics() {
                         std::cout << "Баллы: " << session.getScore() << "/" << session.getMaxScore() << std::endl;
                         std::cout << "Дата: " << timeToString(session.getDate()) << std::endl;
                     }
-                    
                 }
                 system("pause>nul");
                 });
         }
+        menu.addItem("Назад", []() {});
         menu.run();
-        system("pause>nul");
         });
 
     statsMenu.addItem("Назад", []() {});
